@@ -1,0 +1,403 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+
+		<title>Jabong Onling Shopping</title>
+
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" href="styles/style.css">
+
+		<script defer>
+
+			const FIRSTNAME_REQUIRED_ERROR = "First name required";
+			const LASTNAME_REQUIRED_ERROR = "Last name required";
+			const USERNAME_REQUIRED_ERROR = "User name required";
+			const PASSWORD_REQUIRED_ERROR = "password  required";
+			const VERIFY_PASSWORD_REQUIRED_ERROR = "verify the password required";
+
+
+
+			//function to remove whitespace
+			function RemoveWhiteSpace(tempInputString)
+			{
+				return tempInputString.trim();
+			}
+
+			//function to remove whitespace from user input and then return the value
+			function TrimInputString(id)
+			{
+				var inputString = document.getElementById(id).value;
+
+				return document.getElementById(id).value=RemoveWhiteSpace(inputString);
+
+			}
+
+			//function for case conversion
+			function UpperCase(tempInputString)
+			{
+				return tempInputString.toUpperCase();
+			}
+
+			// function to convert the  user input to upper case and then return the value
+			function ChangeToUpperCase(id)
+			{
+				var inputString = document.getElementById(id).value;
+
+				return document.getElementById(id).value = UpperCase(inputString);
+			}
+
+			//function for capitalization
+			function Capitalization(tempInputString)
+			{
+				return tempInputString.substr(0,1).toUpperCase()+
+						tempInputString.substr(1).toLowerCase();
+			}
+
+			//function to change the user input to capitalization and then return the value
+			function FirstLetterCapital(id)
+			{
+				var inputString= document.getElementById(id).value;
+
+				return document.getElementById(id).value = Capitalization(inputString);
+			}
+
+			//function for postal code format validation
+			function PostalCodeVerification()
+			{
+				var regx =/^[A-Z]\d[A-Z]\s\d[A-Z]\d$/;
+				var code= document.getElementById("postal").value;
+
+				if(code.match(regx))
+				{
+					document.getElementById("postal_error").innerHTML= " ";
+				}
+
+				else if (code==="")
+				{
+					document.getElementById("postal_error").innerHTML= " ";
+				}
+
+				else
+				{
+					document.getElementById("postal_error").innerHTML= "Invalid format! Required format eg: N1N 2B5";
+				}
+
+			}
+
+			//function for phone number format validation
+			function PhoneNumberVerification()
+			{
+				var regx =/^\d{3}\-\d{3}\-\d{4}$/;
+				var phoneNumber = document.getElementById("phone").value;
+
+				if(phoneNumber.match(regx) || phoneNumber==="")
+				{
+					document.getElementById("phoneError").innerHTML = "";
+				}
+
+				else
+				{
+					document.getElementById("phoneError").innerHTML = "Invalid format! Required format eg 999-9999-9999";
+				}
+			}
+
+			//function for password format validation
+			function PasswordValidation()
+			{
+				var regEx =/^[[a-zA-Z0-9]{6}$/;
+				var userPassword=document.getElementById("password").value;
+
+				if(userPassword.match(regEx))
+				{
+					document.getElementById("passwordError").innerHTML="";
+				}
+
+				else if(userPassword===""||userPassword.length==0)
+				{
+
+					document.getElementById("passwordError").innerHTML= "";
+				}
+
+				else
+				{
+					document.getElementById("passwordError").innerHTML="Invalid! Password has to be 6 characters long and should contain only numbers or alphabets";
+				}
+
+			}
+
+			//funtion for validation of verify password
+			function VerifyPasswordValidation()
+			{
+				var userPassword=document.getElementById("password").value;
+				var verifyPassword=document.getElementById("verify").value;
+
+				if( userPassword===verifyPassword)
+				{
+					document.getElementById("verifyPasswordError").innerHTML="";
+				}
+				else if( verifyPassword ==="" || verifyPassword ===0)
+				{
+					document.getElementById("verifyPasswordError").innerHTML="";
+				}
+
+				else
+				{
+					document.getElementById("verifyPasswordError").innerHTML="Invalid! it should match the password you entered above";
+				}
+			}
+
+			//function to put focus on any input field by passing id
+			function OnLoadFocus(id)
+			{
+				return document.getElementById(id).focus();
+			}
+
+			// function to validate  all mandatory field is filled
+			function FormValidation()
+			{
+				var errorMessage = 0;
+				var firstName = document.getElementById("first_name").value;
+				var lastName = document.getElementById("last_name").value;
+				var userName = document.getElementById("user_name").value;
+				var userPassword = document.getElementById("password").value;
+				var verifyPassword = document.getElementById("verify").value;
+
+
+				if(firstName===""||firstName.length===0)
+				{
+
+					document.getElementById("firstNameError").innerHTML=FIRSTNAME_REQUIRED_ERROR ;
+					OnLoadFocus('first_name');
+					errorMessage++;
+				}
+				else
+				{
+					document.getElementById("firstNameError").innerHTML="" ;
+				}
+
+				if(lastName===""||lastName.length===0)
+				{
+					document.getElementById("lastNameError").innerHTML=LASTNAME_REQUIRED_ERROR;
+					OnLoadFocus('last_name');
+					errorMessage++;
+				}
+				else
+				{
+					document.getElementById("lastNameError").innerHTML="" ;
+				}
+
+				if(userName ===""||userName.length===0)
+				{
+
+					document.getElementById("userNameError").innerHTML = USERNAME_REQUIRED_ERROR ;
+					OnLoadFocus('user_name');
+					errorMessage++;
+
+				}
+				else
+				{
+					document.getElementById("userNameError").innerHTML="" ;
+				}
+
+				if(userPassword===""||userPassword.length==0)
+				{
+
+					document.getElementById("passwordRequired").innerHTML= PASSWORD_REQUIRED_ERROR;
+				}
+				else
+				{
+					document.getElementById("passwordRequired").innerHTML="" ;
+				}
+
+				if(verifyPassword===""||verifyPassword.length==0)
+				{
+
+					document.getElementById("verifyPasswordRequired").innerHTML= VERIFY_PASSWORD_REQUIRED_ERROR;
+					OnLoadFocus('verify');
+					errorMessage++;
+				}
+				else
+				{
+					document.getElementById("verifyPasswordRequired").innerHTML="" ;
+				}
+
+				if (errorMessage ===0)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+		}
+
+		</script>
+
+	</head>
+
+	<body onload="OnLoadFocus('user_name')">
+
+		<header>
+
+			<h2>Welcome to Jabong</h2>
+			<h3>Online Shopping is easy now</h3>
+
+    	</header>
+
+		<article>
+
+			<h2>Sign Up to get started</h1>
+			<h4>NOTE: red boxes are mandatory fields</h4>
+
+			<form  method="post" action="#" onsubmit="return FormValidation()" >
+
+				<span id="userNameError" style="color:red"></span>
+				<br>
+				<span id="passwordRequired" style="color:red"></span>
+				<br>
+				<span id="verifyPasswordRequired" style="color:red"></span>
+				<br>
+				<span id="firstNameError" style="color:red"></span>
+				<br>
+				<span id="lastNameError" style="color:red"></span>
+				<br>
+
+				<fieldset>
+
+					<legend>Registration Information</legend>
+
+					<label for="user_name">User Name:</label>
+
+					<input class="mandatory" type="userName" name="user_name" id="user_name"
+						  onblur="TrimInputString(id),ChangeToUpperCase(id)" >
+					<br>
+					<br>
+
+					<label for="password">Password:</label>
+					<input class="mandatory" type="password" name="password" id="password"
+						placeholder="exact 6 letters or numbers"
+					 onblur="TrimInputString(id), PasswordValidation()">
+					 <br>
+					<span id="passwordError" style="color:red"></span>
+					<br>
+
+					<label for="verify">Verify Password:</label>
+					<input class="mandatory" type="password" name="verify" id="verify"
+						 onblur="TrimInputString(id), VerifyPasswordValidation()">
+					<br>
+					<span id="verifyPasswordError" style="color:red"></span>
+					<br>
+
+				</fieldset>
+
+				<fieldset>
+
+					<legend>Shopper Information</legend>
+
+					<label for="first_name">First Name:</label>
+					<input class="mandatory" type="text" name="first_name" id="first_name"
+						 onblur="TrimInputString(id),ChangeToUpperCase(id)">
+					<br>
+					<br>
+
+					<label for="last_name">Last Name:</label>
+					<input class="mandatory" type="text" name="last_name" id="last_name"
+						 onblur="TrimInputString(id),ChangeToUpperCase(id)">
+					<br>
+					<br>
+
+					<label for="address">Address:</label>
+					<input  type="text" name="address" id="address"
+						 onblur="TrimInputString(id),ChangeToUpperCase(id)">
+					<br>
+					<br>
+
+					<label for="city">City:</label>
+					<input type="text" name="city" id="city"
+						 onblur="TrimInputString(id),ChangeToUpperCase(id)">
+					<br>
+					<br>
+
+					<label for="province">Province:</label>
+					<input  type="text" name="province" id="province"
+						maxlength="2"
+						placeholder="2-character code" onblur="TrimInputString(id),ChangeToUpperCase(id)">
+					<br>
+					<br>
+
+					<label for="postal">Postal Code:</label>
+					<input  type="text" name="postal" id="postal" maxlength="7"
+						placeholder="LDL DLD  L: Letter, D:Digits"
+						onblur="TrimInputString(id),ChangeToUpperCase(id),PostalCodeVerification()">
+					<br>
+					<span id="postal_error" style="color:red"></span>
+					<br>
+
+					<label for="phone">Phone Number:</label>
+					<input type="tel" name="phone" id="phone"
+						placeholder="999-999-9999" maxlength="12"
+					   onblur="TrimInputString(id),PhoneNumberVerification()">
+					<br>
+					<span id="phoneError" style="color:red"></span>
+					<br>
+
+
+				</fieldset>
+
+
+				<fieldset>
+
+					<legend>Little More Details</legend>
+
+					<label for="gender">Gender:</label><br><br>
+
+					<input type="radio" name="gender" value="male">Male<br>
+					<input type="radio" name="gender" value="female">Female<br>
+
+					<label for="category">Intrested in :</label><br>
+
+					<input type="checkbox" name="category" value="women">Women Clothing<br>
+					<input type="checkbox" name="category" value="men">Men Clothing<br>
+					<input type="checkbox" name="category" value="kids">Kids clothing<br>
+					<input type="checkbox" name="category" value="makeup">Cosmetics<br>
+
+					<label for="ageGroup">Age Group :</label>
+
+					<select name="ageGroup"><br>
+						<option value=""></option>
+						<option value="18">18 yrs to 25yrs</option>
+						<option value="26">26yr to 35yrs</option>
+						<option value="36">36yr to 45yrs</option>
+						<option value="above45">above 45 yrs</option>
+					</select>
+
+				</fieldset>
+
+				<fieldset id="buttons">
+
+					<legend>Submit Your Details</legend>
+
+					<label>&nbsp;</label>
+
+					<input type="submit" id="submit" value="Submit" >
+					<input type="reset" id="reset" value="Reset Fields"><br>
+
+				</fieldset>
+
+			</form>
+
+		</article>
+
+		<footer>
+
+			<p>Prepared By: Archana Lohani</p>
+			<p> Group Number: 18</p>
+
+		</footer>
+
+	</body>
+
+</html>
